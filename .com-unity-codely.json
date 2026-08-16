@@ -1,10 +1,10 @@
 {
-  "unity_port": 11850,
-  "stream_port": 12212,
+  "unity_port": 14870,
+  "stream_port": 14914,
   "created_date": "2026-08-13T10:57:29.668Z",
   "project_path": "D:/File/Tuanjie/Project/FlappyBird/Assets",
   "reloading": false,
   "reason": "ready",
-  "seq": 112423,
-  "last_heartbeat": "2026-08-16T10:18:40.023Z"
+  "seq": 18356,
+  "last_heartbeat": "2026-08-16T12:53:02.975Z"
 }

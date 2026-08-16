@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TreesRun : MonoBehaviour
 {
-    public int speed;
+    public float speed;
+    public float yMax;
+    public float yMin;
     // Start is called before the first frame update
     void Start()
     {
+        float y = Random.Range(yMin, yMax);
+        this.transform.localPosition = new Vector3(0, y, 0);
+
         Destroy(this.gameObject, 4f);
     }
 
