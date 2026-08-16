@@ -23,6 +23,8 @@ public class Game : MonoBehaviour
     public GameObject panelReady;
     public GameObject panelGaming;
     public GameObject panelOver;
+
+    public TreesManager treesManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,16 @@ public class Game : MonoBehaviour
     // 游戏开始按钮功能
     public void StartGame()
     {
-        this.status = GAME_STATUS.Ready;
+        this.status = GAME_STATUS.Gaming;
+        UpdateUI();
+        treesManager.StartGame();
         Debug.Log("GameStart");
+    }
+    // 游戏各状态检测
+    public void UpdateUI()
+    {
+        this.panelReady.SetActive(this.status == GAME_STATUS.Ready);
+        this.panelGaming.SetActive(this.status == GAME_STATUS.Gaming);
+        this.panelOver.SetActive(this.status == GAME_STATUS.Over);
     }
 }
