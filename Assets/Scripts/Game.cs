@@ -23,6 +23,7 @@ public class Game : MonoBehaviour
     public GameObject panelReady;
     public GameObject panelGaming;
     public GameObject panelOver;
+    public UFOOperation ufo;
 
     public TreesManager treesManager;
     // Start is called before the first frame update
@@ -44,6 +45,8 @@ public class Game : MonoBehaviour
         this.status = GAME_STATUS.Gaming;
         UpdateUI();
         treesManager.StartGame();
+        ufo.Move();
+        ufo.Jump();
         Debug.Log("GameStart");
     }
     // ÓÎÏ·¸÷×´Ì¬¼ì²â
