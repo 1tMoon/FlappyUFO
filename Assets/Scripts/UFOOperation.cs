@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UFOOperation : MonoBehaviour
 {
@@ -11,10 +12,18 @@ public class UFOOperation : MonoBehaviour
     private bool die = false;
 
     public float force = 200f;
+
+    public delegate void DeathNotify();
+    public event DeathNotify OnDeath;
+
+    private Vector3 initPos;
+
+    public UnityAction<int> OnScore;
     // Start is called before the first frame update
     void Start()
     {
         this.Idle();
+        initPos = this.transform.position;
     }
 
     // Update is called once per frame
@@ -36,20 +45,41 @@ public class UFOOperation : MonoBehaviour
 
     public void Idle()
     {
-        this.rigidbodyUFO.Sleep();
+        this.rigidbodyUFO.simulated = false;
         this.anim.SetTrigger("Idle");
     }
     public void Jump()
     {
-        this.rigidbodyUFO.WakeUp();
+        this.rigidbodyUFO.simulated = true;
         this.anim.SetTrigger("Jump");
     }
     public void Man()
     {
         this.die = true;
+        if(this.OnDeath!=null)
+            this.OnDeath();
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        this.Man();
+        if(collision.gameObject.name.Equals("ScoreRay"))
+        {
+
+        }
+        else
+            this.Man();
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("ScoreRay"))
+        {
+            if (this.OnScore != null)
+                this.OnScore(1);
+        }
+    }
+    public void Init()
+    {
+        this.transform.position = initPos;
+        this.Idle();
+        this.die = false;
     }
 }

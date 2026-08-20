@@ -6,6 +6,8 @@ public class TreesManager : MonoBehaviour
 {
     // 创建一个模板
     public GameObject template;
+
+    List<TreesRun> treesRuns = new List<TreesRun>();
     // Start is called before the first frame update
     void Start()
     {
@@ -28,19 +30,40 @@ public class TreesManager : MonoBehaviour
     public void StopGame()
     {
         StopCoroutine(coroutine);
+        for (int i = 0;i < treesRuns.Count; i++)
+            treesRuns[i].enabled = false;
+    }
+    
+    void GenerateTree()
+    {
+        if(treesRuns.Count < 3)
+        {
+            // 将需要生成的物体实例化，然后将预制体生成在管理器内部
+            GameObject obj = Instantiate(template, this.transform);
+            TreesRun t = obj.GetComponent<TreesRun>();
+            treesRuns.Add(t);
+        }
     }
     // 生成多个实例化物体
     IEnumerator GenerateTrees()
     {
-        while (true)
+        for (int i = 0; i < 3; i++)
         {
-            GenerateTree();
+            if (treesRuns.Count < 3)
+                GenerateTree();
+            else
+            {
+                treesRuns[i].enabled = true;
+                treesRuns[i].Init();
+            }
             yield return new WaitForSeconds(2f);
         }
     }
-    void GenerateTree()
+    // 
+    public void Init()
     {
-        // 将需要生成的物体实例化，然后将预制体生成在管理器内部
-        Instantiate(template, this.transform);
+        for (int i = 0; i < treesRuns.Count; i++)
+            Destroy(treesRuns[i].gameObject);
+        treesRuns.Clear();
     }
 }
