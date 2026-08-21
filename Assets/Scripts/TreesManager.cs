@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TreesManager : MonoBehaviour
 {
-    // 创建一个模板
-    public GameObject template;
+    public GameObject template;     // 游戏对象
 
-    List<TreesRun> treesRuns = new List<TreesRun>();
+    List<TreesRun> treesRuns = new List<TreesRun>();    // 创建一个列表
+
+    Coroutine coroutine = null; // 初始化协程，将协程设置为空
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,7 @@ public class TreesManager : MonoBehaviour
     {
         
     }
-    //
-    Coroutine coroutine = null;
+    
     // 游戏开始时控制启动
     public void StartGame()
     {
@@ -59,7 +59,7 @@ public class TreesManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
     }
-    // 
+    // 重置多个实例化物体
     public void Init()
     {
         for (int i = 0; i < treesRuns.Count; i++)

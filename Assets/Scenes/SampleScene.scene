@@ -2206,6 +2206,7 @@ MonoBehaviour:
   treesManager: {fileID: 612652708}
   score: 0
   uiScore: {fileID: 1414207596}
+  uiScore2: {fileID: 1965947450}
 --- !u!1 &1902665260
 GameObject:
   m_ObjectHideFlags: 0

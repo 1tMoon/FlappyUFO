@@ -10,88 +10,86 @@ public class Game : MonoBehaviour
     // 枚举出游戏需要的几种状态
     public enum GAME_STATUS
     {
-        Ready,
-        Gaming,
-        Over
+        Ready,  // 准备状态
+        Gaming, // 游戏中状态
+        Over    // 游戏结束状态
     }
-
+    // 创建游戏状态属性
     private GAME_STATUS status;
-
     private GAME_STATUS Status
     { 
         get { return status; } 
         set { this.status = value;
-            this.UpdateUI();
+            this.UpdateUI();    // 调用UI刷新界面
         }
     }
 
-    public GameObject panelReady;
-    public GameObject panelGaming;
-    public GameObject panelOver;
-    public UFOOperation ufo;
+    public GameObject panelReady;   // 游戏准备场景
+    public GameObject panelGaming;  // 游戏中场景
+    public GameObject panelOver;    // 游戏结束场景
 
-    public TreesManager treesManager;
+    public UFOOperation ufo;    // 调用脚本
+    public TreesManager treesManager;   // 调用脚本
 
-    public int score;
-    public TextMeshProUGUI uiScore;
-    public TextMeshProUGUI uiScore2;
+    private int score;   // 分数变量
+    public TextMeshProUGUI uiScore; // 文本组件
+    public TextMeshProUGUI uiScore2;    // 文本组件
     public int Score
     {
         get { return score; }
         set
         {
             this.score = value;
-            this.uiScore.text = this.score.ToString();
+            this.uiScore.text = this.score.ToString();  // 将分数转换为字符串存入文本组件内
             this.uiScore2.text = this.score.ToString();
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        this.panelReady.SetActive(true);
-        this.Status = GAME_STATUS.Ready;
-        this.ufo.OnDeath += Ufo_OnDeath;
-        this.ufo.OnScore = Ufo_OnScore;
+        this.panelReady.SetActive(true);    // 激活游戏准备界面
+        this.Status = GAME_STATUS.Ready;    // 界面更改为准备状态
+        this.ufo.OnDeath += Ufo_OnDeath;    // 将本脚本内的 Ufo_OnDeath 函数绑定至 OnDeath 事件
+        this.ufo.OnScore = Ufo_OnScore; // 将本脚本内的 Ufo_OnScore 函数绑定至 OnScore 事件
     }
-
-    private void Ufo_OnDeath()
-    {
-        this.Status = GAME_STATUS.Over;
-        this.treesManager.StopGame();
-    }
-
-    private void Ufo_OnScore(int score)
-    {
-        this.Score += score;
-    }
-
     // Update is called once per frame
     void Update()
     {
 
     }
 
-    // 游戏开始按钮功能
+    // 游戏开始功能
     public void StartGame()
     {
-        this.Status = GAME_STATUS.Gaming;
-        treesManager.StartGame();
-        ufo.Move();
-        ufo.Jump();
+        this.Status = GAME_STATUS.Gaming;   // 界面更改为游戏中状态
+        treesManager.StartGame();   // 启动碰撞墙
+        ufo.Move(); // 改变 Player 的移动状态
+        ufo.Jump(); // 改变 Player 动画
         Debug.Log("GameStart");
     }
-    // 界面跳转
+    // 游戏重新开始功能
     public void Restart()
     {
-        this.Status = GAME_STATUS.Ready;
-        this.treesManager.Init();
-        this.ufo.Init();
+        this.Status = GAME_STATUS.Ready;    // 界面更改为准备状态
+        this.treesManager.Init();   // 重置碰撞墙
+        this.ufo.Init();    // 初始化 Player 位置
     }
-    // 游戏各状态检测
+    // 游戏界面刷新
     public void UpdateUI()
     {
-        this.panelReady.SetActive(this.Status == GAME_STATUS.Ready);
-        this.panelGaming.SetActive(this.Status == GAME_STATUS.Gaming);
-        this.panelOver.SetActive(this.Status == GAME_STATUS.Over);
+        this.panelReady.SetActive(this.Status == GAME_STATUS.Ready);    // 当需要场景为准备界面时，激活该对象
+        this.panelGaming.SetActive(this.Status == GAME_STATUS.Gaming);  // 当需要场景为游戏中界面时，激活该对象
+        this.panelOver.SetActive(this.Status == GAME_STATUS.Over);  // 当需要场景为游戏结束界面时，激活该对象
+    }
+    // Player 死亡结算
+    private void Ufo_OnDeath()
+    {
+        this.Status = GAME_STATUS.Over; // 界面更改为游戏结束状态
+        this.treesManager.StopGame();   // 停止碰撞墙运行
+    }
+    // 游戏计分器
+    private void Ufo_OnScore(int score)
+    {
+        this.Score += score;    // 当前分数累加（+1）
     }
 }
