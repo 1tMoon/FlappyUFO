@@ -272,6 +272,7 @@ MonoBehaviour:
   rigidbodyUFO: {fileID: 42263745}
   anim: {fileID: 42263747}
   force: 200
+  scoreAnim: {fileID: 1414207598}
 --- !u!1 &51408024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,6 +1856,7 @@ GameObject:
   - component: {fileID: 1414207595}
   - component: {fileID: 1414207597}
   - component: {fileID: 1414207596}
+  - component: {fileID: 1414207598}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: Text (TMP)
@@ -1980,6 +1982,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414207594}
   m_CullTransparentMesh: 1
+--- !u!95 &1414207598
+Animator:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414207594}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba6f4818f55738a408d4f78249868d5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_UpdateFrequencyMode: 0
+  m_UpdateFrequency: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1583521620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2204,9 +2229,9 @@ MonoBehaviour:
   panelOver: {fileID: 1320011709}
   ufo: {fileID: 42263749}
   treesManager: {fileID: 612652708}
-  score: 0
   uiScore: {fileID: 1414207596}
   uiScore2: {fileID: 1965947450}
+  uiScore3: {fileID: 481679641}
 --- !u!1 &1902665260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,8 +2353,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -278858997
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -3976170058847991710, guid: 896173ac4a2bdcf49b7a1e0d456bee83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

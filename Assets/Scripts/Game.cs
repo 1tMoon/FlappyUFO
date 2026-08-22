@@ -32,8 +32,10 @@ public class Game : MonoBehaviour
     public TreesManager treesManager;   // 调用脚本
 
     private int score;   // 分数变量
-    public TextMeshProUGUI uiScore; // 文本组件
-    public TextMeshProUGUI uiScore2;    // 文本组件
+    private int bestScore = 0;   // 分数变量
+    public TextMeshProUGUI uiScore; // 文本组件（游戏内分数显示）
+    public TextMeshProUGUI uiScore2;    // 文本组件（结算界面分数显示）
+    public TextMeshProUGUI uiScore3;    // 文本组件（结算界面历史最高得分显示）
     public int Score
     {
         get { return score; }
@@ -42,6 +44,16 @@ public class Game : MonoBehaviour
             this.score = value;
             this.uiScore.text = this.score.ToString();  // 将分数转换为字符串存入文本组件内
             this.uiScore2.text = this.score.ToString();
+            
+        }
+    }
+    public int BestScore
+    {
+        get { return bestScore; }
+        set
+        {
+            this.bestScore = value;
+            this.uiScore3.text = this.bestScore.ToString();
         }
     }
     // Start is called before the first frame update
@@ -63,7 +75,6 @@ public class Game : MonoBehaviour
     {
         this.Status = GAME_STATUS.Gaming;   // 界面更改为游戏中状态
         treesManager.StartGame();   // 启动碰撞墙
-        ufo.Move(); // 改变 Player 的移动状态
         ufo.Jump(); // 改变 Player 动画
         Debug.Log("GameStart");
     }
@@ -73,6 +84,8 @@ public class Game : MonoBehaviour
         this.Status = GAME_STATUS.Ready;    // 界面更改为准备状态
         this.treesManager.Init();   // 重置碰撞墙
         this.ufo.Init();    // 初始化 Player 位置
+        this.ufo.Idle();    // 改变 Player 动画
+        this.Score = 0; // 重置分数
     }
     // 游戏界面刷新
     public void UpdateUI()
@@ -86,6 +99,9 @@ public class Game : MonoBehaviour
     {
         this.Status = GAME_STATUS.Over; // 界面更改为游戏结束状态
         this.treesManager.StopGame();   // 停止碰撞墙运行
+        ufo.anim.SetBool("JumpAnim", false);   // Player 退出跳跃动画
+        if (this.Score > this.BestScore)    // 判断当前得分是否大于历史最佳
+            BestScore = this.Score;
     }
     // 游戏计分器
     private void Ufo_OnScore(int score)

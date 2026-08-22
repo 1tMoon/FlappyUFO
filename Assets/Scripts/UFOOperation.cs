@@ -8,7 +8,7 @@ public class UFOOperation : MonoBehaviour
     public Rigidbody2D rigidbodyUFO;    // Player刚体组件
     public Animator anim;   // Player动画组件
 
-    private bool move = false;  // 移动状态
+    private bool move = false;  // 可操作状态
     private bool die = false;   // 死亡状态
 
     public float force = 200f;  // 飞行的力度
@@ -19,6 +19,7 @@ public class UFOOperation : MonoBehaviour
     private Vector3 initPos;    // 三维坐标变量
 
     public UnityAction<int> OnScore;    // 创建一个分数委托
+    public Animator scoreAnim;  // 分数动画组件
     // Start is called before the first frame update
     void Start()
     {
@@ -37,22 +38,19 @@ public class UFOOperation : MonoBehaviour
             this.anim.SetBool("JumpAnim", false);   // Player 退出跳跃动画
         }
     }
-    // Player移动状态
-    public void Move()  
-    {
-        this.move = true;   // 移动状态
-    }
     // Player待机状态
     public void Idle()  
     {
         this.rigidbodyUFO.simulated = false; // 控制刚体是否需要进行物理模拟
         this.anim.SetTrigger("Idle"); // 动画状态触发
+        this.move = false;  // 可操作状态
     }
     // Player游戏内状态
     public void Jump()  
     {
         this.rigidbodyUFO.simulated = true; // 控制刚体是否需要进行物理模拟
         this.anim.SetTrigger("Jump"); // 动画状态触发
+        this.move = true;   // 可操作状态
     }
     // Player 控制器
     public void PlayerControl() 
@@ -74,7 +72,8 @@ public class UFOOperation : MonoBehaviour
     // 碰撞进入检测
     public void OnTriggerEnter2D(Collider2D collision)  
     {
-        this.Man(); // 触发Player死亡状态
+        if(collision.CompareTag("Death"))   // 判断碰撞体标签
+            this.Man(); // 触发Player死亡状态
     }
     // 碰撞退出检测
     public void OnTriggerExit2D(Collider2D collision)   
@@ -82,7 +81,10 @@ public class UFOOperation : MonoBehaviour
         if (collision.gameObject.name.Equals("ScoreRay"))   // 判断碰撞对象是否为 “ScoreRay”
         {
             if (this.OnScore != null)   // 判断 OnScore 事件是否存在脚本订阅
+            {
                 this.OnScore(1);    // 执行事件，传入参数 1（+1）
+                this.scoreAnim.SetTrigger("scoreAnim"); // 触发分数动画
+            }      
         }
     }
     // Player位置初始化
