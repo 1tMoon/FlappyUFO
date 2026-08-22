@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     // 枚举出游戏需要的几种状态
     public enum GAME_STATUS
     {
+        Startanim,   // 开场动画状态 
         Ready,  // 准备状态
         Gaming, // 游戏中状态
         Over    // 游戏结束状态
@@ -24,6 +25,7 @@ public class Game : MonoBehaviour
         }
     }
 
+    public GameObject panelStartanim;   // 游戏开场动画
     public GameObject panelReady;   // 游戏准备场景
     public GameObject panelGaming;  // 游戏中场景
     public GameObject panelOver;    // 游戏结束场景

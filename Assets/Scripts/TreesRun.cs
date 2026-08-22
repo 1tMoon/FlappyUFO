@@ -5,8 +5,8 @@ using UnityEngine;
 public class TreesRun : MonoBehaviour
 {
     public float speed; // 墙体的移动速度
-    public float yMax = 11;  // 墙体在y轴向上移动的最大距离
-    public float yMin = -11;  // 墙体在y轴下移动的最大距离
+    public float yMax = 3;  // 墙体在y轴向上移动的最大距离
+    public float yMin = -3;  // 墙体在y轴下移动的最大距离
     public float yUp = 2;  // 墙体在y轴向上移动的最大距离
     public float yDown = 2;  // 墙体在y轴下移动的最大距离
 

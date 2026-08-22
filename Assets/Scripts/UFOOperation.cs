@@ -16,7 +16,7 @@ public class UFOOperation : MonoBehaviour
     public delegate void DeathNotify(); // 声明委托类型
     public event DeathNotify OnDeath;   // 创建事件
 
-    private Vector3 initPos;    // 三维坐标变量
+    private Vector2 initPos;    // 三维坐标变量
 
     public UnityAction<int> OnScore;    // 创建一个分数委托
     public Animator scoreAnim;  // 分数动画组件
@@ -87,11 +87,17 @@ public class UFOOperation : MonoBehaviour
             }      
         }
     }
-    // Player位置初始化
+    // Player 位置初始化
     public void Init()  
     {
         this.transform.position = initPos;  // 将坐标位置传递给 Player
         this.Idle();    // 回到待机状态
         this.die = false;   // 关闭死亡状态
+    }
+
+    // Player 游戏开始向左位移动画
+    public void StartAnim()
+    {
+
     }
 }
